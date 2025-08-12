@@ -1,0 +1,245 @@
+type CommandResponse {
+  "Response code"
+  code: Int
+  "Response message"
+  message: String
+}
+
+type OrganizationMngUser {
+  "User ID"
+  id: ID!
+  "organization id"
+  organizationId: String!
+  "Document Id"
+  documentId: String
+  "first name"
+  firstName: String!
+  "last name"
+  lastName: String!
+  "email address"
+  emailAddress: String!
+  "phone number"
+  phoneNumber: String
+  "lastLoginDate"
+  lastLoginDate: BigInt
+  "User active flag"
+  active: Boolean!
+  "roles"
+  roles: [String]
+  "roleMapName"
+  roleMapName: [String]
+  "user preferences"
+  preferences: OrganizationMngUserPreferences
+  "Regulatory complance docs"
+  regulatoryCompliance: OrganizationMngUserRegulatoryCompliance
+  "user auth"
+  auth: OrganizationMngUserAuth
+  "object metadata"
+  metadata: OrganizationMngUserMetadata
+  companyId: String
+  companyIds: [String]
+  companyObj: JSON
+  profilePicture:String
+}
+
+"Documents for regolatory compliance"
+type OrganizationMngUserRegulatoryCompliance {
+  driverLicenseNumber: String
+  driverLicenseCategory: String
+  driverLicenseExpeditionDate: BigInt
+  driverLicenseExpirationDate: BigInt
+
+  mandatoryHealthPlanNumber: String
+  mandatoryHealthPlanIssuer: String
+  mandatoryHealthPlanExpeditionDate: BigInt
+  mandatoryHealthPlanExpirationDate: BigInt
+
+  occupationalRiskAdministratorNumber: String
+  occupationalRiskAdministratorIssuer: String
+  occupationalRiskAdministratorExpeditionDate: BigInt
+  occupationalRiskAdministratorExpirationDate: BigInt
+  typeVehicles:[String]
+}
+
+type OrganizationMngUserPreferences {
+  "user locale (eg.  EN_us, ES_co)"
+  locale: String
+  "timezone String (TZ database name)"
+  timezone: String
+}
+
+type OrganizationMngUserAuth {
+  "auth id"
+  authId: String
+  "username for login"
+  username: String
+}
+
+type OrganizationMngUserMetadata {
+  createdBy: String
+  createdAt: BigInt
+  updatedBy: String
+  updatedAt: BigInt
+}
+
+type OrganizationMngUserListing {
+  "Listing"
+  listing: [OrganizationMngUser]
+  "query total result count"
+  queryTotalResultCount: Int
+}
+
+input OrganizationMngUserFilterInput {
+  "Name"
+  name: String
+  "Document Id"
+  documentId: String
+  "Role Id"
+  roleId: String
+  roleMapName:String
+  "organization id"
+  organizationId: String!
+  "extend all object"
+  extendedData: Boolean
+  "email address"
+  emailAddress: String
+  "auth username login"
+  username: String
+  "User active flag"
+  active: Boolean
+  "Company Id"
+  company: String
+  companyIds: [String]
+  "multiple user Ids"
+  userIds: [String]
+}
+
+input OrganizationMngUserPaginationInput {
+  "Page"
+  page: Int!
+  "Count"
+  count: Int!
+  "query total result count flag"
+  queryTotalResultCount: Boolean
+}
+
+input OrganizationMngUserSortInput {
+  field: String!
+  asc: Boolean!
+}
+
+input OrganizationMngUserInput {
+  "organization id"
+  organizationId: String!
+  "Document Id"
+  documentId: String
+  "first name"
+  firstName: String!
+  "last name"
+  lastName: String!
+  "email address"
+  emailAddress: String!
+  "phone number"
+  phoneNumber: String
+  "User active flag"
+  active: Boolean!
+  "Company id"
+  companyId: String
+  "companyIds"
+  companyIds:[String]
+  "roles"
+  roles: [String]
+  "roleMapName"
+  roleMapName: [String]
+  "user preferences"
+  preferences: OrganizationMngUserPreferencesInput
+  "Regulatory compliance docs"
+  regulatoryCompliance: OrganizationMngUserRegulatoryComplianceInput
+  "user auth"
+  auth: OrganizationMngUserAuthInput
+}
+
+"Documents for regolatory compliance"
+input OrganizationMngUserRegulatoryComplianceInput {
+  driverLicenseNumber: String
+  driverLicenseCategory: String
+  driverLicenseExpeditionDate: BigInt
+  driverLicenseExpirationDate: BigInt
+
+  mandatoryHealthPlanNumber: String
+  mandatoryHealthPlanIssuer: String
+  mandatoryHealthPlanExpeditionDate: BigInt
+  mandatoryHealthPlanExpirationDate: BigInt
+
+  occupationalRiskAdministratorNumber: String
+  occupationalRiskAdministratorIssuer: String
+  occupationalRiskAdministratorExpeditionDate: BigInt
+  occupationalRiskAdministratorExpirationDate: BigInt
+  typeVehicles:[String]
+}
+
+input OrganizationMngUserPreferencesInput {
+  "user locale (eg.  EN_us, ES_co)"
+  locale: String
+  "timezone String (TZ database name)"
+  timezone: String
+}
+
+input OrganizationMngUserAuthInput {
+
+  authId: String
+  "username for login"
+  username: String
+}
+
+type OrganizationMngRole {
+  id: ID
+  name: String
+}
+
+
+type Query {
+  "Get Users filtered "
+  OrganizationMngUserListing(
+    filterInput: OrganizationMngUserFilterInput
+    paginationInput: OrganizationMngUserPaginationInput
+    sortInput: OrganizationMngUserSortInput
+  ): OrganizationMngUserListing
+  "Get User by its id"
+  OrganizationMngUser(id: ID!, organizationId: String!): OrganizationMngUser
+
+  "Get Roles "
+  OrganizationMngRoleListing: [OrganizationMngRole]
+}
+
+type Mutation {
+  "Create a new User"
+  OrganizationMngCreateUser(
+    input: OrganizationMngUserInput!
+  ): OrganizationMngUser
+  "Update an User"
+  OrganizationMngUpdateUser(
+    id: ID!
+    input: OrganizationMngUserInput!
+    merge: Boolean!
+  ): OrganizationMngUser
+  "Deletes an User"
+  OrganizationMngDeleteUsers(ids: [ID]!): CommandResponse
+
+  "Create Auth"
+  OrganizationMngCreateUserAuth(userId: ID!, username: String!): CommandResponse
+  "Delete Auth"
+  OrganizationMngDeleteUserAuth(userId: ID!): CommandResponse
+  "reset Auth password"
+  OrganizationMngUpdateUserAuthPassword(
+    userId: ID!
+    password: String!
+    temporary: Boolean
+  ): CommandResponse
+  OrganizationMngUpdatePhoto(id: ID!, photo: Upload!, organizationId: String!): CommandResponse
+}
+
+type Subscription {
+  "This events is triggered when a user updated or deleted"
+  OrganizationMngUserModified(id: ID!): OrganizationMngUser
+}

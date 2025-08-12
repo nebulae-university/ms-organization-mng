@@ -1,0 +1,26 @@
+[
+    {
+        "name": "organization-mng-company-management",
+        "type": "graphql",        
+        "src": "api/emi-gateway/graphql/organization-mng-company-management",
+        "preBuildCommands": []
+    },
+    {
+        "name": "organization-mng-organization-management",
+        "type": "graphql",        
+        "src": "api/emi-gateway/graphql/organization-mng-organization-management",
+        "preBuildCommands": []
+    },    
+    {
+        "name": "organization-mng-user-management",
+        "type": "graphql",        
+        "src": "api/emi-gateway/graphql/organization-mng-user-management",
+        "preBuildCommands": []
+    },
+    {
+        "name": "organization-mng-vehicle-management",
+        "type": "graphql",        
+        "src": "api/emi-gateway/graphql/organization-mng-vehicle-management",
+        "preBuildCommands": []
+    }
+]

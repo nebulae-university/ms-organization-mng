@@ -1,0 +1,55 @@
+{
+  "name": "@nebulae-nebulae/organization-mng-mbe-organization-mng",
+  "version": "1.0.0",
+  "description": "BackEnd for the OrganizationMng Microservice",
+  "main": "server.js",
+  "bin": {
+    "organization-mng": "bin/server.js"
+  },
+  "scripts": {
+    "start": "NODE_OPTIONS='--unhandled-rejections=strict' node bin/entry-point/server.js",
+    "dev": "nodemon bin/entry-point/server.js",
+    "sync-state": "node bin/entry-point/sync_state.js",
+    "get-ready": "node bin/entry-point/get_ready.js",
+    "test": "./node_modules/.bin/mocha --recursive --reporter spec",
+    "start-debug": "node --nolazy --inspect-brk=9229 bin/entry-point/server.js",
+    "get-ready-debug": "node --nolazy --inspect-brk=9229 bin/entry-point/get_ready.js",
+    "sync-state-debug": "node --nolazy --inspect-brk=9229 bin/entry-point/sync_state.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nebulae-university/organization-mng.git"
+  },
+  "keywords": [
+    "backend"
+  ],
+  "author": "sebastian.molano@nebulae.com.co",
+  "license": "apache-2.0",
+  "bugs": {
+    "url": "https://github.com/nebulae-university/organization-mng/issues"
+  },
+  "homepage": "https://github.com/nebulae-university/organization-mng#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.0.5"
+  },
+  "dependencies": {
+    "@nebulae/backend-node-tools": "^0.5.5",
+    "@nebulae/event-store": "^4.2.14",
+    "@nebulae/keycloak-admin-client": "^1.1.0",
+    "dateformat": "^3.0.3",
+    "dotenv": "^5.0.1",
+    "excel4node": "^1.7.2",
+    "geolib": "^3.3.1",
+    "jsonwebtoken": "^8.2.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.24.0",
+    "moment-timezone": "^0.5.28",
+    "mongodb": "^5.5.0",
+    "nodemailer": "^6.4.3",
+    "point-in-polygon": "^1.0.1",
+    "request": "^2.88.2",
+    "rxjs": "^6.6.7",
+    "uuid": "^3.3.2"
+  }
+}

@@ -1,0 +1,295 @@
+type CommandResponse {
+  "Response code"
+  code: Int
+  "Response message"
+  message: String
+}
+
+####################
+### QUERY TYPE  ####
+####################
+
+type OrganizationMngVehicle {
+  "Vehicle ID"
+  id: ID!
+  "organization id"
+  organizationId: String! 
+  "Company id"
+  companyId: String 
+  "ownership type"
+  ownership: String
+  "Vehicle Type"
+  type: String
+  "License plate."
+  plate: String!
+  "automotive manufacturer"
+  manufacturer: String
+  "model"
+  model: String
+  "year"
+  year: Int
+  "Vehicle active flag"
+  active: Boolean!    
+  "Vehicle hasDriverDoor flag"
+  hasDriverDoor: Boolean  
+  "fuel type"
+  fuelType: String
+  "emissions standard"
+  emissionsStandard: String
+  "schema type"
+  schemaType: String
+  "Vehicle Colors"
+  colors: [String]
+  "bodyworkBrand"
+  bodyworkBrand: String
+  "chassis number"
+  chassisNumber: String
+  "engine number"
+  engineNumber: String
+  "Organization's internal number"
+  internalNumber: String
+  fuelRangeWithFullTank: Int
+  "Assigned Platform Id"
+  deviceId: String
+  "Assigned Device Id"
+  devSerial: String
+  "Vehicle passenger capacity"
+  capacity: OrganizationMngVehicleCapacity
+  "Law regulatory compliance docs"
+  regulatoryCompliance: OrganizationMngVehicleRegulatoryCompliance
+  "Vehicle human resources"
+  humanResources: OrganizationMngVehicleHumanResources
+  "object metadata"
+  metadata: OrganizationMngVehicleMetadata
+  "id conection vehicle "
+  externalSystemId: String
+  codeLoadToParent: Int
+  pendingToReportToParent:Boolean
+}
+
+"Vehicle passenger capacity"
+type OrganizationMngVehicleCapacity{
+  seated: Int
+  standing: Int
+}
+
+"Law regulatory compliance docs"
+type OrganizationMngVehicleRegulatoryCompliance {  
+  operationCardNumber: String,
+  operationCardExpeditionDate: BigInt
+  operationCardExpirationDate: BigInt
+  operationCardCompany: String
+  operationCardInternalNumber: String
+
+  mandatoryInsuranceNumber: String
+  mandatoryInsuranceExpeditionDate: BigInt
+  mandatoryInsuranceExpirationDate: BigInt
+  mandatoryInsuranceIssuer: String
+
+  technomechanicalNumber: String
+  technomechanicalExpeditionDate: BigInt
+  technomechanicalExpirationDate: BigInt
+  technomechanicalIssuer: String
+
+  carInsuranceNumber: String
+  carInsuranceExpeditionDate: BigInt
+  carInsuranceExpirationDate: BigInt
+  carInsuranceIssuer: String
+}
+
+"Vehicle Human Resources"
+type OrganizationMngVehicleHumanResources {
+    "Vehicle owners"
+    ownerIds: [String]
+    "Vehicle Drivers"
+    driverIds: [String]
+    "Vehicle managers"
+    managerIds: [String]
+    "user obj listing, this is for EMI use only"
+    userObjList: JSON
+}
+
+"Vehicle Metadata"
+type OrganizationMngVehicleMetadata {
+    createdBy: String
+		createdAt: BigInt
+		updatedBy: String
+		updatedAt: BigInt
+}
+
+"Vehicle Listing."
+type OrganizationMngVehicleListing {
+  "Listing"
+  listing: [OrganizationMngVehicle]
+  "query total result count"
+  queryTotalResultCount: Int,  
+}
+
+type OrganizationMngImportVehicle {
+  persisted: Int
+  validRows: Int
+  inserted: Int
+  updated: Int
+  INVALID_DATA: Int
+  NOT_FOUND: Int
+  PROCESS_ERROR: Int
+  MONGO_ERROR: Int
+}
+
+"Vehicle listing input"
+input OrganizationMngVehicleFilterInput {
+  "organization id"
+  organizationId: String!
+  "license plate"
+  plate: String
+  "Vehicle active flag"
+  active: Boolean,
+  "Keyword to search"
+  keyword: String,
+  "Company id"
+  company: String,
+  "true to get object complete from mongo"
+  extendedData: Boolean
+  "true or false to completed query "
+  unlimitedQuery: Boolean
+}
+
+"Vehicle listin pagination input"
+input OrganizationMngVehiclePaginationInput {
+  "Page"
+  page: Int!
+  "Count"
+  count: Int!
+  "query total result count flag"
+  queryTotalResultCount: Boolean
+}
+
+"Vehicle listin sorting input"
+input OrganizationMngVehicleSortInput {
+  field: String!,
+  asc: Boolean!,
+}
+
+
+##################
+### MUTATIONS ####
+##################
+
+input OrganizationMngVehicleInput {
+  "organization id"
+  organizationId: String!  
+  "ownership type"
+  ownership: String
+  "Vehicle Type"
+  type: String
+  "License palte"
+  plate: String!
+  "automotive manufacturer"
+  manufacturer: String
+  "model"
+  model: String
+  "year"
+  year: Int
+  "Vehicle active flag"
+  active: Boolean!   
+  "Vehicle hasDriverDoor flag"
+  hasDriverDoor: Boolean    
+  "fuel type"
+  fuelType: String
+  "emissions standard"
+  emissionsStandard: String
+  "schema type"
+  schemaType: String
+  "Vehicle Colors"
+  colors: [String]
+  "bodyworkBrand"
+  bodyworkBrand: String
+  "chassis number"
+  chassisNumber: String
+  "engine number"
+  engineNumber: String
+  "Organization's internal number"
+  internalNumber: String
+  ""
+  fuelRangeWithFullTank: Int
+  "Company id"
+  companyId: String
+  "Assigned platform Id"
+  deviceId: String
+  "Assigned Device Id"
+  devSerial: String
+  "Vehicle passenger capacity"  
+  capacity: OrganizationMngVehicleCapacityInput
+  "Law regulatory compliance docs"
+  regulatoryCompliance: OrganizationMngVehicleRegulatoryComplianceInput
+  "Vehicle human resources"
+  humanResources: OrganizationMngVehicleHumanResourcesInput
+  codeLoadToParent:Int
+}
+
+"Vehicle passenger capacity"
+input OrganizationMngVehicleCapacityInput{
+  seated: Int
+  standing: Int
+}
+
+"Law regulatory compliance docs"
+input OrganizationMngVehicleRegulatoryComplianceInput{  
+  operationCardNumber: String,
+  operationCardExpeditionDate: BigInt
+  operationCardExpirationDate: BigInt
+  operationCardCompany: String
+  operationCardInternalNumber: String
+
+  mandatoryInsuranceNumber: String
+  mandatoryInsuranceExpeditionDate: BigInt
+  mandatoryInsuranceExpirationDate: BigInt
+  mandatoryInsuranceIssuer: String
+
+  technomechanicalNumber: String
+  technomechanicalExpeditionDate: BigInt
+  technomechanicalExpirationDate: BigInt
+  technomechanicalIssuer: String
+
+  carInsuranceNumber: String
+  carInsuranceExpeditionDate: BigInt
+  carInsuranceExpirationDate: BigInt
+  carInsuranceIssuer: String
+}
+
+"Vehicle Human Resources"
+input OrganizationMngVehicleHumanResourcesInput {
+    "Vehicle owners"
+    ownerIds: [String]
+    "Vehicle Drivers"
+    driverIds: [String]
+    "Vehicle managers"
+    managerIds: [String]
+}
+
+##############################################################
+########### QUERY / MUTATIONS / SUBSCRIPTIONS ################
+##############################################################
+
+
+type Query {
+  "Get Vehicles filtered "
+  OrganizationMngVehicleListing(filterInput: OrganizationMngVehicleFilterInput, paginationInput: OrganizationMngVehiclePaginationInput, sortInput: OrganizationMngVehicleSortInput): OrganizationMngVehicleListing
+  "Get Vehicle by its id"
+  OrganizationMngVehicle(id: ID!, organizationId: String!): OrganizationMngVehicle
+}
+
+type Mutation {
+  OrganizationMngImportVehicle(vehicleDataCompress: String, organizationId: String):  OrganizationMngImportVehicle
+  "Create a new Vehicle"
+  OrganizationMngCreateVehicle(input: OrganizationMngVehicleInput!): OrganizationMngVehicle
+  "Update an Vehicle"
+  OrganizationMngUpdateVehicle(id: ID!, input: OrganizationMngVehicleInput!, merge: Boolean!): OrganizationMngVehicle  
+  "Deletes an Vehicle"
+  OrganizationMngDeleteVehicles(ids: [ID]!, organizationId: String!, companyId: String): CommandResponse  
+}
+
+type Subscription {
+  "This events is triggered when a vehicle updated or deleted"
+  OrganizationMngVehicleModified(id: ID!): OrganizationMngVehicle
+}

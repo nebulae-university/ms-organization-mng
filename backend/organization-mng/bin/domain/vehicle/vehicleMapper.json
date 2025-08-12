@@ -1,0 +1,194 @@
+{
+    "Placa": {
+        "name": "plate",
+        "type": "String"
+    },
+    "active": {
+        "name": "active",
+        "type": "Boolean"
+    },
+    "Numero Interno": {
+        "name": "internalNumber",
+        "type": "String"
+    },
+    "Op. Transporte": {
+        "name": "companyId",
+        "type": "String"
+    },
+    "Tipo": {
+        "name": "type",
+        "type": "String"
+    },
+    "Tipo Energizacion del Motor": {
+        "name": "fuelType",
+        "type": "String"
+    },
+    "Propietario": {
+        "name": "ownership",
+        "type": "String"
+    },
+    "Fabricante":{
+        "name": "manufacturer",
+        "type": "String"
+    },
+    "Linea": {
+        "name": "model",
+        "type": "String"
+    },
+    "Anio": {
+        "name": "year",
+        "type": "Int"
+    },
+    "Norma de Emisiones": {
+        "name": "emissionsStandard",
+        "type": "String"
+    },
+    "Tipo de Esquema": {
+        "name": "schemaType",
+        "type": "String"
+    },
+    "Colores": {
+        "name": "colors",
+        "type": "Array",
+        "splitter":","
+    },
+    "Numero de Chasis": {
+        "name": "chassisNumber",
+        "type": "String"
+    },
+    "Numero de Motor": {
+        "name": "engineNumber",
+        "type": "String"
+    },
+    "Capacidad Sentados": {
+        "name": "capacity.seated",
+        "type": "Int"
+    },
+    "Capacidad Parados": {
+        "name": "capacity.standing",
+        "type": "Int"
+    },
+    "Marca de Carroceria": {
+        "name": "bodyworkBrand",
+        "type": "String"
+    },
+    "Tarjeta de Operacion": {
+        "name": "regulatoryCompliance.operationCardNumber",
+        "type": "String"
+    },
+    "Expedicion Tarjeta de Operacion": {
+        "name": "regulatoryCompliance.operationCardExpeditionDate",
+        "type": "Date"
+    },
+    "Expiracion Tarjeta de Operacion": {
+        "name": "regulatoryCompliance.operationCardExpirationDate",
+        "type": "Date"
+    },
+    "Empresa de Tarjeta de Operacion": {
+        "name": "regulatoryCompliance.operationCardCompany",
+        "type": "String"
+    },
+    "Numero Interno de Tarjeta de Operacion": {
+        "name": "regulatoryCompliance.operationCardInternalNumber",
+        "type": "String"
+    },
+    "Numero de Seguro Obligatorio": {
+        "name": "regulatoryCompliance.mandatoryInsuranceNumber",
+        "type": "String"
+    },
+    "Expedicion del Seguro Obligatorio": {
+        "name": "regulatoryCompliance.mandatoryInsuranceExpeditionDate",
+        "type": "Date"
+    },
+    "Expiracion del Seguro Obligatorio": {
+        "name": "regulatoryCompliance.mandatoryInsuranceExpirationDate",
+        "type": "Date"
+    },
+    "Emisor del Seguro Obligatorio": {
+        "name": "regulatoryCompliance.mandatoryInsuranceIssuer",
+        "type": "String"
+    },
+    "Numero de Tecnico-Mecanica": {
+        "name": "regulatoryCompliance.technomechanicalNumber",
+        "type": "String"
+    },
+    "Expedicion de Tecnico-Mecanica": {
+        "name": "regulatoryCompliance.technomechanicalExpeditionDate",
+        "type": "Date"
+    },
+    "Expiracion de Tecnico-Mecanica": {
+        "name": "regulatoryCompliance.technomechanicalExpirationDate",
+        "type": "Date"
+    },
+    "Emisor de Tecnico-Mecanica": {
+        "name": "regulatoryCompliance.technomechanicalIssuer",
+        "type": "String"
+    },
+    "Numero del Seguro de Vehiculo": {
+        "name": "regulatoryCompliance.carInsuranceNumber",
+        "type": "String"
+    },
+    "Expedicion del Seguro de Vehiculo": {
+        "name": "regulatoryCompliance.carInsuranceExpeditionDate",
+        "type": "Date"
+    },
+    "Expiracion del Seguro de Vehiculo": {
+        "name": "regulatoryCompliance.carInsuranceExpirationDate",
+        "type": "Date"
+    },
+    "Emisor del Seguro de Vehiculo": {
+        "name": "regulatoryCompliance.carInsuranceIssuer",
+        "type": "String"
+    },
+    "Autonomia de vehiculo (km)": {
+        "name": "fuelRangeWithFullTank",
+        "type": "BigInt"
+    },
+    "ID del Vehiculo": {
+        "name": "_id",
+        "type": "String"
+    },
+    "Creado Por:": {
+        "name": "metadata.createdBy",
+        "type": "String"
+    },
+    "Fecha Creacion:": {
+        "name": "metadata.createdAt",
+        "type": "Date"
+    },
+    "Hora Creacion:": {
+        "name": "metadata.createdAt",
+        "type": "Time"
+    },
+    "Actualizado Por:": {
+        "name": "metadata.updatedBy",
+        "type": "String"
+    },
+    "Fecha Actualizado:": {
+        "name": "metadata.updatedAt",
+        "type": "Date"
+    },
+    "Hora Actualizado:": {
+        "name": "metadata.updatedAt",
+        "type": "Time"
+    },
+    "Conductores Doc": {
+        "name": "humanResources.driverIds",
+        "type": "Array",
+        "splitter":";"
+    },
+    " Propietarios Doc": {
+        "name": "humanResources.ownerIds",
+        "type": "Array",
+        "splitter":";"
+    },
+    "Administradores Doc": {
+        "name": "humanResources.managerIds",
+        "type": "Array",
+        "splitter":";"
+    },
+    "Tiene Puerta del Conductor": {
+        "name": "hasDriverDoor",
+        "type": "Boolean"
+    }
+}

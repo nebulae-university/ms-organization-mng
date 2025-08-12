@@ -1,0 +1,93 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: organization-mng
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: organization-mng
+  template:
+    metadata:
+      labels:
+        app: organization-mng
+    spec:      
+      containers:
+      - image: IMAGE_NAMESPACE/IMAGE_NAME:IMAGE_TAG
+        name: organization-mng
+        volumeMounts:
+        - name: google-application-credentials
+          mountPath: "/etc/GOOGLE_APPLICATION_CREDENTIALS"
+          readOnly: true
+        env:     
+        # EVENT STORE CONFIG 
+        - name: GOOGLE_APPLICATION_CREDENTIALS
+          value: /etc/GOOGLE_APPLICATION_CREDENTIALS/gcloud-service-key.json  
+        - name: EVENT_STORE_BROKER_TYPE
+          value: PUBSUB
+        - name: EVENT_STORE_BROKER_EVENTS_TOPIC
+          value: events
+        - name: EVENT_STORE_STORE_TYPE
+          value: MONGO
+        - name: EVENT_STORE_STORE_URL
+          valueFrom:
+            secretKeyRef:
+              name: dbevents-user
+              key: url
+        - name: EVENT_STORE_STORE_AGGREGATES_DB_NAME
+          value: Aggregates
+        - name: EVENT_STORE_STORE_EVENTSTORE_DB_NAME
+          value: EventStore
+        # INTERNAL MONGO DB CONFIG
+        - name: MONGODB_URL
+          value: mongodb://orga-mng-mongo:27017
+        - name: MONGODB_DB_NAME
+          value: organization-mng
+        # JWT CONFIG  
+        - name: AVAILABLE_JWT_LIST
+          value: "JWT_PUBLIC_KEY,JWT_DEVICE_KEY,JWT_PIS_KEY"
+        - name: JWT_PUBLIC_KEY
+          value: -----BEGIN PUBLIC KEY-----\n<PUBLIC_KEY>\n-----END PUBLIC KEY-----
+        # API - emi-GATEWAY CONFIG
+        - name: emi-GATEWAY_REPLIES_TOPIC_SUBSCRIPTION
+          value: emi-gateway-replies-topic-mbe-organization-mng
+        - name: REPLY_TIMEOUT
+          value: '2000'
+        - name: BROKER_TYPE
+          value: MQTT
+        - name: MQTT_PROTOCOL
+          value: tcp
+        - name: MQTT_PROTOCOL_VERSION
+          value: '4'
+        - name: MQTT_TOPIC_PREFIX
+          value: $share/ms-organization-mng_mbe_organization-mng/
+        - name: MQTT_SERVER_URL
+          value: 'tcp://emqx-internal'
+        - name: MQTT_PORT
+          value: '1883'
+        # RESET LOCK INITIALIZE BACKED
+        - name: KEYCLOAK_BACKEND_BASE_URL
+          value: https://university.nebulae.com.co/auth
+        - name: KEYCLOAK_BACKEND_USER
+          value: <KEYCLOAK_BACKEND_USER>
+        - name: KEYCLOAK_BACKEND_PASSWORD
+          value: <KEYCLOAK_BACKEND_PASSWORD>
+        - name: KEYCLOAK_BACKEND_CLIENT_ID
+          value: admin-cli
+        - name: KEYCLOAK_BACKEND_REALM_NAME
+          value: NEBULAE_UNIVERSITY
+        # RESET LOCK INITIALIZE BACKED
+        - name: LOCKVERSION
+          value: "initial_lock"
+        # THIS MICROSERVICES CUSTOM CONFIGS
+        - name: LOG_LEVEL
+          value: "1"
+        - name: MICROBACKEND_KEY
+          value: ms-organization-mng_mbe_organization-mng
+        - name: EMI_MATERIALIZED_VIEW_UPDATES_TOPIC
+          value: emi-gateway-materialized-view-updates
+
+        resources:
+          requests:
+            cpu: "200m"      
+      

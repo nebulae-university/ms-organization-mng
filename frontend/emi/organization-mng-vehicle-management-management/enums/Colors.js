@@ -1,0 +1,32 @@
+const COLORS = [
+    "OTHER",
+    "ALUMINUM",
+    "BEIGE",
+    "BLACK",
+    "BLUE",
+    "BROWN",
+    "BRONZE",
+    "CLARET",
+    "COPPER",
+    "CREAM",
+    "GOLD",
+    "GRAY",
+    "GREEN",
+    "MAROON",
+    "METALLIC",
+    "NAVY",
+    "ORANGE",
+    "PINK",
+    "PURPLE",
+    "RED",
+    "ROSE",
+    "RUST",
+    "SILVER",
+    "TAN",
+    "TURQUOISE",
+    "WHITE",
+    "YELLOW",
+    "WINE"
+];
+
+export default COLORS;

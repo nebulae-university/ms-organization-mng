@@ -1,0 +1,282 @@
+enum OrganizationMngCompanyDocumentType {
+  "PASSPORT NUMBER"
+  PASSPORT_NUMBER
+  "IDENTITY CARD.  'Tarjeta de Identidad' in Spanish"
+  IDENTITY_CARD
+  "CITIZENSHIP CARD.  'cédula de ciudadanía' in Spanish"
+  CITIZENSHIP_CARD
+  "FOREIGNER IDENTITY.  'cédula de extranjeria' in Spanish"
+  FOREIGNER_IDENTITY
+  "NIP.  'Número de identificación personal' in Spanish.  Applies only for Colombia"
+  NIP
+  "NIUP.  'número único de identificación personal' in Spanish.  Applies only for Colombia"
+  NIUP
+  NIT
+}
+
+type CommandResponse {
+  "Response code"
+  code: Int
+  "Response message"
+  message: String
+}
+ 
+type OrganizationMngCompany {
+  "Company ID."
+  id: ID
+  "name"
+  name: String
+  "Organization id ref."
+  organizationId: String!
+  "authorityCode"
+  authorityCode: String   
+  "Logo Url"
+  logoUrl: String
+  "Industry" 
+  industry: String,
+  "Company description"
+  description: String
+  "Company active flag"
+  active: Boolean 
+  "Use Geocode Translation"
+  useGeocodeTranslation: Boolean
+  attributes: JSON,
+  "object metadata"
+  metadata: OrganizationMngCompanyMetadata
+  "vehicle quota"
+  vehicleQuota: Int
+  "company documents"
+  documents: [OrganizationMngCompanyDocument]
+  "Document"
+  document:String
+  "Document type"
+  documentType:OrganizationMngCompanyDocumentType
+  "Primary Link"
+  primaryLink: OrganizationMngCompanyPrimaryLink
+  partners: [ID]
+  partnersDetails:[JSON]
+  partnerId: [String]
+
+}
+
+type OrganizationMngCompanyPrimaryLink{
+  "url"
+  url: String
+  "username"
+  username: String
+  "password"
+  password: String
+  "organizationId"
+  organizationId: String
+  "companyId"
+  companyId: String
+}
+
+type OrganizationMngExternalCompany{
+  "organizationId"
+  organizationId: String
+  "companyId"
+  companyId: String
+}
+
+type OrganizationMngParentCompanyVehicleQuota{
+  "vehicleQuota"
+  vehicleQuota: Int
+  "companyId"
+  companyId: String
+}
+
+type OrganizationMngCompanyDocument {
+  "document name"
+  name: String
+  "fileUrl"
+  fileURL: String
+  "uploader User Id"
+  uploaderUserId: String
+  "uploader User Fullname"
+  uploaderUserFullname: String
+  "upload timestamp"
+  uploadTimestamp: BigInt
+}
+
+type OrganizationMngCompanyMetadata {
+    createdBy: String
+		createdAt: BigInt
+		updatedBy: String
+		updatedAt: BigInt
+}
+
+type OrganizationMngCompanyListing {
+  "Listing"
+  listing: [OrganizationMngCompany]
+  "query total result count"
+  queryTotalResultCount: Int,  
+}
+
+
+type UserMngCompanyListing {
+  "Listing"
+  listing: [UserMngCompany]
+  "query total result count"
+  queryTotalResultCount: Int
+}
+
+type UserMngCompany {
+  id: ID
+  name: String
+  partners: [String]
+  authorityCode: String
+  active: Boolean
+  
+}
+type OrganizationMngCompanyPartialFile {
+  requestId: String
+  downloadKey: BigInt
+  partialEncode: String
+  totalSections: Int
+  currentSection: Int
+}
+
+
+input OrganizationMngCompanyFilterInput {
+  "Organization Id"
+  organizationId: String!
+  "Name"
+  name: String,  
+  "Company active flag"
+  active: Boolean
+  
+}
+
+
+
+input OrganizationMngCompanyPaginationInput {
+  "Page"
+  page: Int!
+  "Count"
+  count: Int!
+  "query total result count flag"
+  queryTotalResultCount: Boolean
+}
+
+input OrganizationMngCompanySortInput {
+  field: String!,
+  asc: Boolean!,
+}
+
+input OrganizationMngCompanyInput {
+  "name"
+  name: String
+  "Organization id ref"
+  organizationId: String!
+  "authorityCode"
+  authorityCode: String
+  "Company description"
+  description: String
+  "Logo Url"
+  logoUrl: String
+  "Industry"
+  industry: String
+  "Company active flag"
+  active: Boolean
+  attributes: JSON
+  "Use Geocode Translation"
+  useGeocodeTranslation: Boolean
+  "vehicleQuota"
+  vehicleQuota: Int
+  "Document"
+  document:String
+  "Document type"
+  documentType:OrganizationMngCompanyDocumentType
+  "Primary Link"
+  primaryLink: OrganizationMngCompanyPrimaryLinkInput
+  partners:[ID]
+  "partners to delete"
+  agregatePartnersToDelete: [String]
+  "Partners ID"
+  partnerId: [String]
+}
+
+input OrganizationMngCompanyPrimaryLinkInput {
+  "url"
+  url: String
+  "username"
+  username: String
+  "password"
+  password: String
+  "organizationId"
+  organizationId: String
+  "companyId"
+  companyId: String
+  
+
+}
+
+input UserMngCompanyFilterInput {
+  organizationId: String
+  name: String
+  active: Boolean
+}
+
+input UserMngCompanyPaginationInput {
+  page: Int
+  count: Int
+  queryTotalResultCount: Boolean
+}
+
+input UserMngCompanySortInput {
+  field: String!
+  asc: Boolean!
+}
+
+input OrganizationMngExternalCompanyInput{
+  "organizationId"
+  organizationId: String
+  "companyId"
+  companyId: String
+}
+
+type OrganizationMngResponseDownloadCompanyDocument {
+  url:String
+  validityTS:BigInt
+}
+type Query {
+  "Get Companies filtered "
+  OrganizationMngCompanyListing(filterInput: OrganizationMngCompanyFilterInput, paginationInput: OrganizationMngCompanyPaginationInput, sortInput: OrganizationMngCompanySortInput): OrganizationMngCompanyListing
+  OrganizationMngAlliesListing(alliesSearch:String, organizationId:String, companyId:String): OrganizationMngCompanyListing
+  "Get Company by its id"
+  OrganizationMngCompany(id: ID!, organizationId: String!):OrganizationMngCompany
+  "Get user companies"
+  UserMngCompanyListing(
+    filterInput: UserMngCompanyFilterInput
+    paginationInput: UserMngCompanyPaginationInput
+    sortInput: UserMngCompanySortInput
+  ): UserMngCompanyListing
+   "Get vehicleQuota"
+   OrganizationMngParentCompanyVehicleQuota(organizationId:String!, companyId:String!): OrganizationMngParentCompanyVehicleQuota
+   "Get external Company"
+   OrganizationMngExternalCompany(organizationId:String, companyId:String): OrganizationMngExternalCompany
+   OrganizationMngRequestDownloadCompanyDocument(requestId: String,fileUrl: String, downloadKey: BigInt): OrganizationMngResponseDownloadCompanyDocument
+}
+
+type Mutation {
+  "Create a new Company"
+  OrganizationMngCreateCompany(input: OrganizationMngCompanyInput!): OrganizationMngCompany
+  "Update an Company"
+  OrganizationMngUpdateCompany(id: ID!, input: OrganizationMngCompanyInput!, merge: Boolean!): OrganizationMngCompany  
+  "Deletes an Company"
+  OrganizationMngDeleteCompanies(ids: [ID]!): CommandResponse  
+  "Assigns to allies from company"
+  OrganizationMngUpdateAlliesCompany(id: ID!, ids: [ID]!, organizationId:String): CommandResponse
+  "Deletes an Company"
+  OrganizationMngDeleteCompanyDocumentsByFileUrl(companyId: String, fileUrls: [String]): OrganizationMngCompany  
+  OrganizationMngUploadCompanyDocument(organizationId: String,companyId: String,fileName: String, file: Upload): OrganizationMngCompany
+  
+}
+
+
+type Subscription {
+  "This events is triggered when a company updated or deleted"
+  OrganizationMngCompanyModified(id: ID!): OrganizationMngCompany
+  OrganizationMngCompanyPartialFileDownloaded(requestId: String): OrganizationMngCompanyPartialFile
+}
